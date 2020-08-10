@@ -7,8 +7,8 @@
 %bcond_with zchunk
 
 Name:                    librepo
-Version:                 1.11.0
-Release:                 2 
+Version:                 1.12.0
+Release:                 1 
 Summary:                 Repodata downloading library                 
 License:                 LGPLv2+
 URL:                     https://github.com/rpm-software-management/librepo
@@ -126,5 +126,8 @@ popd
 %endif
 
 %changelog
+* Tue Aug 04 2020 shanzhikun <shanzhikun@huawei.com> - 1.12.0-1
+- upgrade librepo to 1.12.0.
+
 * Tue Jan 7 2020 openEuler Buildteam <buildteam@openeuler.org> - 1.11.0-2
 - Pakcage init
