@@ -6,11 +6,14 @@
 
 Name:                    librepo
 Version:                 1.12.0
-Release:                 1
+Release:                 2
 Summary:                 Repodata downloading library                 
 License:                 LGPLv2+
 URL:                     https://github.com/rpm-software-management/librepo
 Source0:                 %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+Patch0:                  backport-CVE-2020-14352-Validate-path-read-from-repomd.xml.patch
+
 BuildRequires:           cmake check-devel doxygen pkgconfig(glib-2.0) gcc
 BuildRequires:           libcurl-devel >= %{libcurl_version} pkgconfig(libxml-2.0)
 BuildRequires:           pkgconfig(openssl) gpgme-devel libattr-devel pkgconfig(libcrypto)
@@ -77,6 +80,9 @@ popd
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Fri Jan 22 2021 fuanan <fuanan3@huawei.com> - 1.12.0-2
+- fix CVE-2020-14352
+
 * Tue Apr 28 2020 zhouyihang <zhouyihang3@huawei.com> - 1.12.0-1
 - Type:requirement
 - ID:NA
