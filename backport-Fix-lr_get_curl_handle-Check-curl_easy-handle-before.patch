@@ -1,0 +1,26 @@
+From f889cdba3b71eec66c3f9756b11b709f74f8b388 Mon Sep 17 00:00:00 2001
+From: Jaroslav Rohel <jrohel@redhat.com>
+Date: Thu, 6 May 2021 17:54:11 +0200
+Subject: [PATCH] Fix: lr_get_curl_handle: Check curl_easy handle before use
+
+---
+ librepo/handle.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/librepo/handle.c b/librepo/handle.c
+index d59aad9..8db9c16 100644
+--- a/librepo/handle.c
++++ b/librepo/handle.c
+@@ -56,6 +56,9 @@ lr_get_curl_handle()
+     lr_global_init();
+ 
+     h = curl_easy_init();
++    if (!h)
++        return NULL;
++
+     curl_easy_setopt(h, CURLOPT_FOLLOWLOCATION, 1);
+     curl_easy_setopt(h, CURLOPT_MAXREDIRS, 6);
+     curl_easy_setopt(h, CURLOPT_CONNECTTIMEOUT, LRO_CONNECTTIMEOUT_DEFAULT);
+-- 
+1.8.3.1
+
