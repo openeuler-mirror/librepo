@@ -8,13 +8,18 @@
 
 Name:                    librepo
 Version:                 1.12.0
-Release:                 2
+Release:                 3
 Summary:                 Repodata downloading library                 
 License:                 LGPLv2+
 URL:                     https://github.com/rpm-software-management/librepo
 Source0:                 %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch0:                  backport-CVE-2020-14352-Validate-path-read-from-repomd.xml.patch
+Patch1:                  backport-Fix-memory-leaks.patch
+Patch2:                  backport-Fix-lr_fastestmirror_prepare-Resource-leaks.patch
+Patch3:                  backport-Fix-lr_get_curl_handle-Check-curl_easy-handle-before.patch
+Patch4:                  backport-lr_get_curl_handle-Strict-check-of-curl_easy_setopt-.patch
+Patch5:                  backport-Remove-may-be-used-uninitialized-compiler-warnings.patch
 
 BuildRequires:           cmake check-devel doxygen pkgconfig(glib-2.0) gcc
 BuildRequires:           libcurl-devel >= %{libcurl_version} pkgconfig(libxml-2.0)
@@ -129,6 +134,17 @@ popd
 %endif
 
 %changelog
+* Sat May 29 2021 fuanan <fuanan3@huawei.com> - 1.12.0-3
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:[add] backport patches from upstream
+       Fix:memory leaks
+       Fix:lr_fastestmirror_prepare:Resource leaks
+       Fix:lr_get_curl_handle:Check curl_easy handle before use
+       lr_get_curl_handle:Strict check of curl_easy_setopt return code
+       Remove "may be used uninitialized" compiler warnings
+
 * Mon Jan 25 2021 fuanan <fuanan3@huawei.com> - 1.12.0-2
 - fix CVE-2020-14352
 
