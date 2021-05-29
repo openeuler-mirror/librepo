@@ -1,0 +1,32 @@
+From 9e9b29a8447403890bea6586804206e1060c27d1 Mon Sep 17 00:00:00 2001
+From: Jaroslav Rohel <jrohel@redhat.com>
+Date: Thu, 6 May 2021 17:34:16 +0200
+Subject: [PATCH] Fix: lr_fastestmirror_prepare: Resource leaks
+
+---
+ librepo/fastestmirror.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/librepo/fastestmirror.c b/librepo/fastestmirror.c
+index afa1f22..348483a 100644
+--- a/librepo/fastestmirror.c
++++ b/librepo/fastestmirror.c
+@@ -352,6 +352,7 @@ lr_fastestmirror_prepare(LrHandle *handle,
+             g_set_error(err, LR_FASTESTMIRROR_ERROR, LRE_CURL,
+                         "curl_easy_setopt(_, CURLOPT_URL, %s) failed: %s",
+                         url, curl_easy_strerror(curlcode));
++            curl_easy_cleanup(curlh);
+             ret = FALSE;
+             break;
+         }
+@@ -361,6 +362,7 @@ lr_fastestmirror_prepare(LrHandle *handle,
+             g_set_error(err, LR_FASTESTMIRROR_ERROR, LRE_CURL,
+                     "curl_easy_setopt(_, CURLOPT_CONNECT_ONLY, 1) failed: %s",
+                     curl_easy_strerror(curlcode));
++            curl_easy_cleanup(curlh);
+             ret = FALSE;
+             break;
+         }
+-- 
+1.8.3.1
+
