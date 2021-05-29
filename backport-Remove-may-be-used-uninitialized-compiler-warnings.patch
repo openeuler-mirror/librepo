@@ -1,0 +1,56 @@
+From ac36c6a4269f25878b838825590e37c3bdcd67c8 Mon Sep 17 00:00:00 2001
+From: Jaroslav Rohel <jrohel@redhat.com>
+Date: Thu, 6 May 2021 18:16:38 +0200
+Subject: [PATCH] Remove "may be used uninitialized" compiler warnings
+
+warning: 'path' may be used uninitialized in this function
+ [-Wmaybe-uninitialized]
+
+warning: 'file_basename' may be used uninitialized in this function
+ [-Wmaybe-uninitialized]
+---
+ librepo/handle.c             | 6 ++----
+ librepo/package_downloader.c | 3 +--
+ 2 files changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/librepo/handle.c b/librepo/handle.c
+index c44ec61..8ac7234 100644
+--- a/librepo/handle.c
++++ b/librepo/handle.c
+@@ -905,8 +905,7 @@ lr_handle_prepare_mirrorlist(LrHandle *handle, gchar *localpath, GError **err)
+         return TRUE;
+     } else if (localpath && !handle->mirrorlisturl) {
+         // Just try to use mirrorlist of the local repository
+-        _cleanup_free_ gchar *path;
+-        path = lr_pathconcat(localpath, "mirrorlist", NULL);
++        _cleanup_free_ gchar *path = lr_pathconcat(localpath, "mirrorlist", NULL);
+ 
+         if (g_file_test(path, G_FILE_TEST_IS_REGULAR)) {
+             g_debug("%s: Local mirrorlist found at %s", __func__, path);
+@@ -1021,8 +1020,7 @@ lr_handle_prepare_metalink(LrHandle *handle, gchar *localpath, GError **err)
+         return TRUE;
+     } else if (localpath && !handle->metalinkurl) {
+         // Just try to use metalink of the local repository
+-        _cleanup_free_ gchar *path;
+-        path = lr_pathconcat(localpath, "metalink.xml", NULL);
++        _cleanup_free_ gchar *path = lr_pathconcat(localpath, "metalink.xml", NULL);
+ 
+         if (g_file_test(path, G_FILE_TEST_IS_REGULAR)) {
+             g_debug("%s: Local metalink.xml found at %s", __func__, path);
+diff --git a/librepo/package_downloader.c b/librepo/package_downloader.c
+index 509f2a0..adea459 100644
+--- a/librepo/package_downloader.c
++++ b/librepo/package_downloader.c
+@@ -547,8 +547,7 @@ lr_check_packages(GSList *targets,
+         if (packagetarget->dest) {
+             if (g_file_test(packagetarget->dest, G_FILE_TEST_IS_DIR)) {
+                 // Dir specified
+-                _cleanup_free_ gchar *file_basename;
+-                file_basename = g_path_get_basename(packagetarget->relative_url);
++                _cleanup_free_ gchar *file_basename = g_path_get_basename(packagetarget->relative_url);
+ 
+                 local_path = g_build_filename(packagetarget->dest,
+                                               file_basename,
+-- 
+1.8.3.1
+
