@@ -1,22 +1,16 @@
-%global libcurl_version 7.28.0
+%global libcurl_version 7.52.0
 %global dnf_conflict 2.8.8
 
 %bcond_without pythontests
 %bcond_with zchunk
 
 Name:                    librepo
-Version:                 1.12.1
-Release:                 2
+Version:                 1.14.2
+Release:                 1
 Summary:                 Repodata downloading library                 
 License:                 LGPLv2+
 URL:                     https://github.com/rpm-software-management/librepo
 Source0:                 %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:                  backport-Fix-memory-leaks.patch
-Patch1:                  backport-Fix-lr_fastestmirror_prepare-Resource-leaks.patch
-Patch2:                  backport-Fix-lr_get_curl_handle-Check-curl_easy-handle-before.patch
-Patch3:                  backport-lr_get_curl_handle-Strict-check-of-curl_easy_setopt-.patch
-Patch4:                  backport-Remove-may-be-used-uninitialized-compiler-warnings.patch
 
 BuildRequires:           cmake check-devel doxygen pkgconfig(glib-2.0) gcc
 BuildRequires:           libcurl-devel >= %{libcurl_version} pkgconfig(libxml-2.0)
@@ -84,6 +78,9 @@ popd
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Tue Nov 30 2021 fuanan <fuanan3@huawei.com> - 1.14.2-1
+- update version to 1.14.2
+
 * Sat May 29 2021 fuanan <fuanan3@huawei.com> - 1.12.0-2
 - Type:bugfix
 - ID:NA
