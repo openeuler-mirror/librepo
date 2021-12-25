@@ -6,7 +6,7 @@
 
 Name:                    librepo
 Version:                 1.14.2
-Release:                 1
+Release:                 2
 Summary:                 Repodata downloading library                 
 License:                 LGPLv2+
 URL:                     https://github.com/rpm-software-management/librepo
@@ -31,7 +31,7 @@ Development files for librepo.
 %package -n              python3-librepo
 Summary:                 Python 3 bindings for the librepo library
 %{?python_provide:%python_provide python3-%{name}}
-BuildRequires:           python3-devel python3-gpg python3-flask python3-nose
+BuildRequires:           python3-devel python3-gpg python3-flask
 BuildRequires:           python3-pyxattr python3-requests python3-sphinx
 Requires:                %{name} = %{version}-%{release}
 Obsoletes:               platform-python-%{name} < %{version}-%{release}
@@ -78,6 +78,9 @@ popd
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Tue Nov 30 2021 fuanan <fuanan3@huawei.com> - 1.14.2-2
+- Delete BuildRequires python3-nose
+
 * Tue Nov 30 2021 fuanan <fuanan3@huawei.com> - 1.14.2-1
 - update version to 1.14.2
 
