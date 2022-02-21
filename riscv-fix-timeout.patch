@@ -1,0 +1,11 @@
+diff --color -urN librepo-1.12.1/tests/test_gpg.c librepo-1.12.1-new/tests/test_gpg.c
+--- librepo-1.12.1/tests/test_gpg.c	2022-02-21 13:44:55.538033023 +0800
++++ librepo-1.12.1-new/tests/test_gpg.c	2022-02-21 13:49:17.919017721 +0800
+@@ -119,6 +119,7 @@
+ {
+     Suite *s = suite_create("gpg");
+     TCase *tc = tcase_create("Main");
++    tcase_set_timeout(tc, 100);
+     tcase_add_test(tc, test_gpg_check_signature);
+     suite_add_tcase(s, tc);
+     return s;

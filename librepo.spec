@@ -6,7 +6,7 @@
 
 Name:                    librepo
 Version:                 1.12.1
-Release:                 2
+Release:                 3
 Summary:                 Repodata downloading library                 
 License:                 LGPLv2+
 URL:                     https://github.com/rpm-software-management/librepo
@@ -17,6 +17,9 @@ Patch1:                  backport-Fix-lr_fastestmirror_prepare-Resource-leaks.pa
 Patch2:                  backport-Fix-lr_get_curl_handle-Check-curl_easy-handle-before.patch
 Patch3:                  backport-lr_get_curl_handle-Strict-check-of-curl_easy_setopt-.patch
 Patch4:                  backport-Remove-may-be-used-uninitialized-compiler-warnings.patch
+%ifarch riscv64
+Patch5:			 riscv-fix-timeout.patch
+%endif
 
 BuildRequires:           cmake check-devel doxygen pkgconfig(glib-2.0) gcc
 BuildRequires:           libcurl-devel >= %{libcurl_version} pkgconfig(libxml-2.0)
@@ -84,6 +87,9 @@ popd
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Mon Feb 21 2022 YukariChiba <i@0x7f.cc> - 1.12.0-3
+- Fix RISC-V by setting a larger test timeout
+
 * Sat May 29 2021 fuanan <fuanan3@huawei.com> - 1.12.0-2
 - Type:bugfix
 - ID:NA
